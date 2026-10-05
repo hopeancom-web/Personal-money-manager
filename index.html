@@ -6,135 +6,1429 @@
 <meta name="theme-color" content="#2563eb">
 <link rel="manifest" href="manifest.json">
 <title>Personal Money Manager</title>
+
 <style>
-:root{--bg:#f5f7fb;--card:#fff;--text:#172033;--muted:#6b7280;--line:#e5e7eb;--accent:#2563eb;--green:#16a34a;--red:#dc2626}
-*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,sans-serif;background:var(--bg);color:var(--text)}
-header{background:var(--accent);color:white;padding:20px 16px;border-radius:0 0 22px 22px}
-header h1{margin:0;font-size:23px}header p{margin:5px 0 0;opacity:.85}
-main{max-width:900px;margin:auto;padding:16px}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-.card,.panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:15px;box-shadow:0 2px 8px #00000008}
-.card small{color:var(--muted)}.amount{font-size:22px;font-weight:750;margin-top:7px}.green{color:var(--green)}.red{color:var(--red)}
-.tabs{display:flex;gap:8px;overflow:auto;margin:16px 0}.tabs button,.primary,.secondary,.danger{border:0;border-radius:11px;padding:10px 13px;font-weight:650;cursor:pointer}.tabs button{background:#e9eefc;color:#334155}.tabs button.active,.primary{background:var(--accent);color:#fff}
-.secondary{background:#eef2f7}.danger{background:#fee2e2;color:#991b1b}
-.panel{margin-bottom:14px}h2{font-size:18px;margin:0 0 12px}label{font-size:13px;color:var(--muted);display:block;margin:8px 0 5px}
-input,select,textarea{width:100%;padding:11px;border:1px solid var(--line);border-radius:10px;font:inherit;background:#fff}
-.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
-.list{display:grid;gap:9px}.item{border:1px solid var(--line);border-radius:13px;padding:12px;display:flex;justify-content:space-between;gap:12px;align-items:center}
-.item strong{display:block}.meta{color:var(--muted);font-size:13px;margin-top:3px}.item .buttons{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
-.hidden{display:none!important}.empty{color:var(--muted);text-align:center;padding:20px}
-@media(max-width:700px){.grid{grid-template-columns:1fr 1fr}.row{grid-template-columns:1fr}.item{align-items:flex-start;flex-direction:column}.item .buttons{justify-content:flex-start}}
+:root{
+--bg:#f5f7fb;
+--card:#fff;
+--text:#172033;
+--muted:#6b7280;
+--line:#e5e7eb;
+--accent:#2563eb;
+--green:#16a34a;
+--red:#dc2626;
+--orange:#ea580c
+}
+
+*{box-sizing:border-box}
+
+body{
+margin:0;
+font-family:system-ui,-apple-system,Segoe UI,sans-serif;
+background:var(--bg);
+color:var(--text)
+}
+
+header{
+background:var(--accent);
+color:white;
+padding:20px 16px;
+border-radius:0 0 22px 22px
+}
+
+header h1{
+margin:0;
+font-size:23px
+}
+
+header p{
+margin:5px 0 0;
+opacity:.85
+}
+
+main{
+max-width:900px;
+margin:auto;
+padding:16px
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:12px
+}
+
+.card,.panel{
+background:var(--card);
+border:1px solid var(--line);
+border-radius:16px;
+padding:15px;
+box-shadow:0 2px 8px #00000008
+}
+
+.card small{
+color:var(--muted)
+}
+
+.amount{
+font-size:22px;
+font-weight:750;
+margin-top:7px
+}
+
+.green{color:var(--green)}
+.red{color:var(--red)}
+.orange{color:var(--orange)}
+
+.tabs{
+display:flex;
+gap:8px;
+overflow:auto;
+margin:16px 0
+}
+
+.tabs button,
+.primary,
+.secondary,
+.danger{
+border:0;
+border-radius:11px;
+padding:10px 13px;
+font-weight:650;
+cursor:pointer;
+white-space:nowrap
+}
+
+.tabs button{
+background:#e9eefc;
+color:#334155
+}
+
+.tabs button.active,
+.primary{
+background:var(--accent);
+color:#fff
+}
+
+.secondary{
+background:#eef2f7
+}
+
+.danger{
+background:#fee2e2;
+color:#991b1b
+}
+
+.panel{
+margin-bottom:14px
+}
+
+h2{
+font-size:18px;
+margin:0 0 12px
+}
+
+label{
+font-size:13px;
+color:var(--muted);
+display:block;
+margin:8px 0 5px
+}
+
+input,select,textarea{
+width:100%;
+padding:11px;
+border:1px solid var(--line);
+border-radius:10px;
+font:inherit;
+background:#fff
+}
+
+.row{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px
+}
+
+.actions{
+display:flex;
+gap:8px;
+flex-wrap:wrap;
+margin-top:12px
+}
+
+.list{
+display:grid;
+gap:9px
+}
+
+.item{
+border:1px solid var(--line);
+border-radius:13px;
+padding:12px;
+display:flex;
+justify-content:space-between;
+gap:12px;
+align-items:center
+}
+
+.item strong{
+display:block
+}
+
+.meta{
+color:var(--muted);
+font-size:13px;
+margin-top:3px
+}
+
+.item .buttons{
+display:flex;
+gap:6px;
+flex-wrap:wrap;
+justify-content:flex-end
+}
+
+.hidden{
+display:none!important
+}
+
+.empty{
+color:var(--muted);
+text-align:center;
+padding:20px
+}
+
+.badge{
+display:inline-block;
+padding:4px 8px;
+border-radius:8px;
+font-size:12px;
+font-weight:700;
+margin-top:5px
+}
+
+.badge.green{
+background:#dcfce7;
+color:#166534
+}
+
+.badge.red{
+background:#fee2e2;
+color:#991b1b
+}
+
+.badge.orange{
+background:#ffedd5;
+color:#9a3412
+}
+
+.emi-summary{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:10px;
+margin-bottom:14px
+}
+
+.summary-box{
+background:#f8fafc;
+border:1px solid var(--line);
+border-radius:12px;
+padding:12px
+}
+
+.summary-box small{
+color:var(--muted);
+display:block
+}
+
+.summary-box strong{
+font-size:18px;
+display:block;
+margin-top:5px
+}
+
+@media(max-width:700px){
+
+.grid{
+grid-template-columns:1fr 1fr
+}
+
+.row{
+grid-template-columns:1fr
+}
+
+.item{
+align-items:flex-start;
+flex-direction:column
+}
+
+.item .buttons{
+justify-content:flex-start
+}
+
+.emi-summary{
+grid-template-columns:1fr
+}
+
+}
 </style>
 </head>
-<body>
-<header><h1>💰 Personal Money Manager</h1><p>Income • Expenses • Receivables • Payables</p></header>
-<main>
-<section class="grid">
-<div class="card"><small>Current Cash</small><div class="amount" id="cash">₹0</div></div>
-<div class="card"><small>കിട്ടാനുള്ളത്</small><div class="amount green" id="receivable">₹0</div></div>
-<div class="card"><small>കൊടുക്കാനുള്ളത്</small><div class="amount red" id="payable">₹0</div></div>
-<div class="card"><small>This Month Expense</small><div class="amount" id="monthExpense">₹0</div></div>
-</section>
 
-<div class="tabs">
-<button class="active" data-tab="dashboard">Dashboard</button>
-<button data-tab="receivableTab">📥 കിട്ടാനുള്ളത്</button>
-<button data-tab="payableTab">📤 കൊടുക്കാനുള്ളത്</button>
-<button data-tab="expenseTab">💸 Expense</button>
-<button data-tab="incomeTab">💰 Income</button>
+<body>
+
+<header>
+<h1>💰 Personal Money Manager</h1>
+<p>Income • Expenses • EMI • Receivables • Payables</p>
+</header>
+
+<main>
+
+<!-- DASHBOARD CARDS -->
+
+<section class="grid">
+
+<div class="card">
+<small>Current Cash</small>
+<div class="amount" id="cash">₹0</div>
 </div>
 
-<section id="dashboard" class="tab">
-<div class="panel"><h2>Recent Transactions</h2><div id="recent" class="list"></div></div>
+<div class="card">
+<small>കിട്ടാനുള്ളത്</small>
+<div class="amount green" id="receivable">₹0</div>
+</div>
+
+<div class="card">
+<small>കൊടുക്കാനുള്ളത്</small>
+<div class="amount red" id="payable">₹0</div>
+</div>
+
+<div class="card">
+<small>This Month Expense</small>
+<div class="amount" id="monthExpense">₹0</div>
+</div>
+
 </section>
+
+<!-- TABS -->
+
+<div class="tabs">
+
+<button class="active" data-tab="dashboard">
+Dashboard
+</button>
+
+<button data-tab="receivableTab">
+📥 കിട്ടാനുള്ളത്
+</button>
+
+<button data-tab="payableTab">
+📤 കൊടുക്കാനുള്ളത്
+</button>
+
+<button data-tab="expenseTab">
+💸 Expense
+</button>
+
+<button data-tab="incomeTab">
+💰 Income
+</button>
+
+<button data-tab="emiTab">
+📅 EMI
+</button>
+
+</div>
+
+<!-- DASHBOARD -->
+
+<section id="dashboard" class="tab">
+
+<div class="panel">
+
+<h2>📊 Money Overview</h2>
+
+<div class="emi-summary">
+
+<div class="summary-box">
+<small>This Month EMI</small>
+<strong id="dashboardEMI">₹0</strong>
+</div>
+
+<div class="summary-box">
+<small>Next EMI</small>
+<strong id="dashboardNextEMI">No EMI</strong>
+</div>
+
+<div class="summary-box">
+<small>Upcoming EMI Date</small>
+<strong id="dashboardNextDate">-</strong>
+</div>
+
+</div>
+
+</div>
+
+<div class="panel">
+
+<h2>⏰ Upcoming EMI</h2>
+
+<div id="upcomingEMI" class="list"></div>
+
+</div>
+
+<div class="panel">
+
+<h2>Recent Transactions</h2>
+
+<div id="recent" class="list"></div>
+
+</div>
+
+</section>
+
+<!-- RECEIVABLE -->
 
 <section id="receivableTab" class="tab hidden">
-<div class="panel"><h2>Add Money To Receive</h2>
-<form id="receivableForm"><div class="row">
-<div><label>Name</label><input name="name" required></div>
-<div><label>Phone Number</label><input name="phone" inputmode="tel" required></div></div>
-<div class="row"><div><label>Amount (₹)</label><input name="amount" type="number" min="0" step="0.01" required></div>
-<div><label>Due Date</label><input name="date" type="date"></div></div>
-<label>Note</label><textarea name="note"></textarea><div class="actions"><button class="primary">Add</button></div></form>
-</div><div class="panel"><h2>Pending Receivables</h2><div id="receivableList" class="list"></div></div>
+
+<div class="panel">
+
+<h2>Add Money To Receive</h2>
+
+<form id="receivableForm">
+
+<div class="row">
+
+<div>
+<label>Name</label>
+<input name="name" required>
+</div>
+
+<div>
+<label>Phone Number</label>
+<input name="phone" inputmode="tel" required>
+</div>
+
+</div>
+
+<div class="row">
+
+<div>
+<label>Amount (₹)</label>
+<input name="amount" type="number" min="0" step="0.01" required>
+</div>
+
+<div>
+<label>Due Date</label>
+<input name="date" type="date">
+</div>
+
+</div>
+
+<label>Note</label>
+<textarea name="note"></textarea>
+
+<div class="actions">
+<button class="primary">Add</button>
+</div>
+
+</form>
+
+</div>
+
+<div class="panel">
+
+<h2>Pending Receivables</h2>
+
+<div id="receivableList" class="list"></div>
+
+</div>
+
 </section>
+
+<!-- PAYABLE -->
 
 <section id="payableTab" class="tab hidden">
-<div class="panel"><h2>Add Money To Pay</h2>
-<form id="payableForm"><div class="row">
-<div><label>Name</label><input name="name" required></div>
-<div><label>Phone Number</label><input name="phone" inputmode="tel" required></div></div>
-<div class="row"><div><label>Amount (₹)</label><input name="amount" type="number" min="0" step="0.01" required></div>
-<div><label>Due Date</label><input name="date" type="date"></div></div>
-<label>Note</label><textarea name="note"></textarea><div class="actions"><button class="primary">Add</button></div></form>
-</div><div class="panel"><h2>Pending Payables</h2><div id="payableList" class="list"></div></div>
+
+<div class="panel">
+
+<h2>Add Money To Pay</h2>
+
+<form id="payableForm">
+
+<div class="row">
+
+<div>
+<label>Name</label>
+<input name="name" required>
+</div>
+
+<div>
+<label>Phone Number</label>
+<input name="phone" inputmode="tel" required>
+</div>
+
+</div>
+
+<div class="row">
+
+<div>
+<label>Amount (₹)</label>
+<input name="amount" type="number" min="0" step="0.01" required>
+</div>
+
+<div>
+<label>Due Date</label>
+<input name="date" type="date">
+</div>
+
+</div>
+
+<label>Note</label>
+<textarea name="note"></textarea>
+
+<div class="actions">
+<button class="primary">Add</button>
+</div>
+
+</form>
+
+</div>
+
+<div class="panel">
+
+<h2>Pending Payables</h2>
+
+<div id="payableList" class="list"></div>
+
+</div>
+
 </section>
+
+<!-- EXPENSE -->
 
 <section id="expenseTab" class="tab hidden">
-<div class="panel"><h2>Add Expense</h2><form id="expenseForm"><div class="row">
-<div><label>Amount (₹)</label><input name="amount" type="number" min="0" step="0.01" required></div>
-<div><label>Category</label><select name="category"><option>Food</option><option>Travel</option><option>Shopping</option><option>Bills</option><option>Mobile</option><option>Other</option></select></div></div>
-<div class="row"><div><label>Date</label><input name="date" type="date" required></div><div><label>Note</label><input name="note"></div></div>
-<div class="actions"><button class="primary">Add Expense</button></div></form></div>
-<div class="panel"><h2>Expenses</h2><div id="expenseList" class="list"></div></div>
+
+<div class="panel">
+
+<h2>Add Expense</h2>
+
+<form id="expenseForm">
+
+<div class="row">
+
+<div>
+<label>Amount (₹)</label>
+<input name="amount" type="number" min="0" step="0.01" required>
+</div>
+
+<div>
+<label>Category</label>
+
+<select name="category">
+
+<option>Food</option>
+<option>Travel</option>
+<option>Shopping</option>
+<option>Bills</option>
+<option>Mobile</option>
+<option>EMI</option>
+<option>Other</option>
+
+</select>
+
+</div>
+
+</div>
+
+<div class="row">
+
+<div>
+<label>Date</label>
+<input name="date" type="date" required>
+</div>
+
+<div>
+<label>Note</label>
+<input name="note">
+</div>
+
+</div>
+
+<div class="actions">
+<button class="primary">Add Expense</button>
+</div>
+
+</form>
+
+</div>
+
+<div class="panel">
+
+<h2>Expenses</h2>
+
+<div id="expenseList" class="list"></div>
+
+</div>
+
 </section>
 
+<!-- INCOME -->
+
 <section id="incomeTab" class="tab hidden">
-<div class="panel"><h2>Add Income</h2><form id="incomeForm"><div class="row">
-<div><label>Amount (₹)</label><input name="amount" type="number" min="0" step="0.01" required></div>
-<div><label>Source</label><input name="source" placeholder="Salary, business, etc." required></div></div>
-<div class="row"><div><label>Date</label><input name="date" type="date" required></div><div><label>Note</label><input name="note"></div></div>
-<div class="actions"><button class="primary">Add Income</button></div></form></div>
-<div class="panel"><h2>Income</h2><div id="incomeList" class="list"></div></div>
+
+<div class="panel">
+
+<h2>Add Income</h2>
+
+<form id="incomeForm">
+
+<div class="row">
+
+<div>
+<label>Amount (₹)</label>
+<input name="amount" type="number" min="0" step="0.01" required>
+</div>
+
+<div>
+<label>Source</label>
+<input name="source" placeholder="Salary, business, etc." required>
+</div>
+
+</div>
+
+<div class="row">
+
+<div>
+<label>Date</label>
+<input name="date" type="date" required>
+</div>
+
+<div>
+<label>Note</label>
+<input name="note">
+</div>
+
+</div>
+
+<div class="actions">
+<button class="primary">Add Income</button>
+</div>
+
+</form>
+
+</div>
+
+<div class="panel">
+
+<h2>Income</h2>
+
+<div id="incomeList" class="list"></div>
+
+</div>
+
 </section>
+
+<!-- EMI -->
+
+<section id="emiTab" class="tab hidden">
+
+<div class="panel">
+
+<h2>📅 Add EMI</h2>
+
+<form id="emiForm">
+
+<div class="row">
+
+<div>
+<label>EMI Name</label>
+<input name="name" placeholder="iPhone EMI / Bike EMI" required>
+</div>
+
+<div>
+<label>EMI Amount (₹)</label>
+<input name="amount" type="number" min="0" step="0.01" required>
+</div>
+
+</div>
+
+<div class="row">
+
+<div>
+<label>Next EMI Date</label>
+<input name="date" type="date" required>
+</div>
+
+<div>
+<label>Total EMI</label>
+<input name="total" type="number" min="1" required>
+</div>
+
+</div>
+
+<div class="row">
+
+<div>
+<label>Paid EMI</label>
+<input name="paidCount" type="number" min="0" value="0" required>
+</div>
+
+<div>
+<label>Note</label>
+<input name="note" placeholder="Optional">
+</div>
+
+</div>
+
+<div class="actions">
+
+<button class="primary">
+➕ Add EMI
+</button>
+
+</div>
+
+</form>
+
+</div>
+
+<div class="panel">
+
+<h2>📊 EMI Summary</h2>
+
+<div class="emi-summary">
+
+<div class="summary-box">
+<small>Total EMI Amount</small>
+<strong id="emiTotalAmount">₹0</strong>
+</div>
+
+<div class="summary-box">
+<small>Remaining EMI</small>
+<strong id="emiRemaining">0</strong>
+</div>
+
+<div class="summary-box">
+<small>Next Payment</small>
+<strong id="emiNextAmount">₹0</strong>
+</div>
+
+</div>
+
+</div>
+
+<div class="panel">
+
+<h2>💳 My EMI List</h2>
+
+<div id="emiList" class="list"></div>
+
+</div>
+
+</section>
+
 </main>
 
 <script>
-const KEY='personalMoneyManager_v1';
-let data=JSON.parse(localStorage.getItem(KEY)||'{"income":[],"expense":[],"receivable":[],"payable":[]}');
-const money=n=>'₹'+Number(n||0).toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2});
-const today=()=>new Date().toISOString().slice(0,10);
-document.querySelectorAll('input[type=date]').forEach(x=>x.value=today());
 
-function save(){localStorage.setItem(KEY,JSON.stringify(data));render();}
-function total(a){return a.reduce((s,x)=>s+Number(x.amount||0),0)}
-function wa(phone,text){let p=String(phone).replace(/\D/g,''); if(p.length===10)p='91'+p; window.open('https://wa.me/'+p+'?text='+encodeURIComponent(text),'_blank')}
-function remove(type,id){data[type]=data[type].filter(x=>x.id!==id);save()}
-function paid(type,id){const x=data[type].find(x=>x.id===id);if(!x)return;x.paid=true;save()}
+const KEY='personalMoneyManager_v1';
+
+let data=JSON.parse(
+localStorage.getItem(KEY) ||
+'{"income":[],"expense":[],"receivable":[],"payable":[],"emi":[]}'
+);
+
+if(!Array.isArray(data.income)) data.income=[];
+if(!Array.isArray(data.expense)) data.expense=[];
+if(!Array.isArray(data.receivable)) data.receivable=[];
+if(!Array.isArray(data.payable)) data.payable=[];
+if(!Array.isArray(data.emi)) data.emi=[];
+
+const money=n=>'₹'+Number(n||0).toLocaleString('en-IN',{
+minimumFractionDigits:2,
+maximumFractionDigits:2
+});
+
+const today=()=>new Date().toISOString().slice(0,10);
+
+document
+.querySelectorAll('input[type=date]')
+.forEach(x=>x.value=today());
+
+function save(){
+
+localStorage.setItem(KEY,JSON.stringify(data));
+
+render();
+
+}
+
+function total(a){
+
+return a.reduce(
+(s,x)=>s+Number(x.amount||0),
+0
+);
+
+}
+
+function wa(phone,text){
+
+let p=String(phone).replace(/\D/g,'');
+
+if(p.length===10)p='91'+p;
+
+window.open(
+'https://wa.me/'+p+
+'?text='+encodeURIComponent(text),
+'_blank'
+);
+
+}
+
+function remove(type,id){
+
+data[type]=data[type].filter(
+x=>x.id!==id
+);
+
+save();
+
+}
+
+function paid(type,id){
+
+const x=data[type].find(
+x=>x.id===id
+);
+
+if(!x)return;
+
+x.paid=true;
+
+save();
+
+}
+
+/* EMI PAID */
+
+function payEMI(id){
+
+const x=data.emi.find(
+x=>x.id===id
+);
+
+if(!x)return;
+
+if(Number(x.paidCount)>=Number(x.total)){
+
+alert('All EMI payments are already completed.');
+
+return;
+
+}
+
+x.paidCount=Number(x.paidCount)+1;
+
+/* Move next EMI date one month forward */
+
+const d=new Date(x.date+'T00:00:00');
+
+d.setMonth(d.getMonth()+1);
+
+x.date=d.toISOString().slice(0,10);
+
+save();
+
+}
+
+/* DELETE EMI */
+
+function deleteEMI(id){
+
+if(!confirm('Delete this EMI?'))return;
+
+data.emi=data.emi.filter(
+x=>x.id!==id
+);
+
+save();
+
+}
+
+/* NORMAL LIST */
 
 function itemHTML(x,type){
- const isR=type==='receivable', isP=type==='payable';
- let buttons='';
- if(isR||isP){
-   const msg=isR?`Hi ${x.name}, ₹${Number(x.amount).toLocaleString('en-IN')} is pending with me. Please send it when convenient.`:`Hi ${x.name}, I have ₹${Number(x.amount).toLocaleString('en-IN')} to pay. I will settle it soon.`;
-   buttons=`<button class="secondary" onclick='wa(${JSON.stringify(x.phone)},${JSON.stringify(msg)})'>💬 WhatsApp</button><button class="secondary" onclick="paid('${type}',${x.id})">✅ Paid</button>`;
- }
- buttons+=`<button class="danger" onclick="remove('${type}',${x.id})">Delete</button>`;
- return `<div class="item"><div><strong>${x.name||x.source||x.category||'Transaction'} — ${money(x.amount)}</strong><div class="meta">${x.phone||x.date||''}${x.date&&x.phone?' • '+x.date:''}${x.note?' • '+x.note:''}${x.paid?' • PAID':''}</div></div><div class="buttons">${buttons}</div></div>`;
+
+const isR=type==='receivable';
+const isP=type==='payable';
+
+let buttons='';
+
+if(isR||isP){
+
+const msg=isR
+?
+`Hi ${x.name}, ₹${Number(x.amount).toLocaleString('en-IN')} is pending with me. Please send it when convenient.`
+:
+`Hi ${x.name}, I have ₹${Number(x.amount).toLocaleString('en-IN')} to pay. I will settle it soon.`;
+
+buttons+=
+`<button class="secondary"
+onclick='wa(${JSON.stringify(x.phone)},${JSON.stringify(msg)})'>
+💬 WhatsApp
+</button>
+
+<button class="secondary"
+onclick="paid('${type}',${x.id})">
+✅ Paid
+</button>`;
+
 }
+
+buttons+=
+`<button class="danger"
+onclick="remove('${type}',${x.id})">
+Delete
+</button>`;
+
+return `
+<div class="item">
+
+<div>
+
+<strong>
+${x.name||x.source||x.category||'Transaction'}
+—
+${money(x.amount)}
+</strong>
+
+<div class="meta">
+${x.phone||x.date||''}
+${x.date&&x.phone?' • '+x.date:''}
+${x.note?' • '+x.note:''}
+${x.paid?' • PAID':''}
+</div>
+
+</div>
+
+<div class="buttons">
+${buttons}
+</div>
+
+</div>
+`;
+
+}
+
 function renderList(id,arr,type){
- const el=document.getElementById(id);el.innerHTML=arr.length?arr.slice().reverse().map(x=>itemHTML(x,type)).join(''):'<div class="empty">No records yet</div>';
+
+const el=document.getElementById(id);
+
+el.innerHTML=arr.length
+?
+arr
+.slice()
+.reverse()
+.map(x=>itemHTML(x,type))
+.join('')
+:
+'<div class="empty">No records yet</div>';
+
 }
+
+/* EMI HTML */
+
+function emiHTML(x){
+
+const remaining=
+Math.max(
+0,
+Number(x.total)-Number(x.paidCount)
+);
+
+const todayDate=
+new Date();
+
+const due=
+new Date(x.date+'T00:00:00');
+
+const diff=
+Math.ceil(
+(due-todayDate)/(1000*60*60*24)
+);
+
+let status='';
+
+if(remaining<=0){
+
+status=
+`<span class="badge green">✅ COMPLETED</span>`;
+
+}
+else if(diff<0){
+
+status=
+`<span class="badge red">⚠️ OVERDUE</span>`;
+
+}
+else if(diff<=7){
+
+status=
+`<span class="badge orange">⏰ DUE IN ${diff} DAYS</span>`;
+
+}
+else{
+
+status=
+`<span class="badge green">UPCOMING</span>`;
+
+}
+
+let buttons='';
+
+if(remaining>0){
+
+buttons+=
+`<button class="secondary"
+onclick="payEMI(${x.id})">
+✅ EMI Paid
+</button>`;
+
+}
+
+buttons+=
+`<button class="danger"
+onclick="deleteEMI(${x.id})">
+Delete
+</button>`;
+
+return `
+
+<div class="item">
+
+<div>
+
+<strong>
+📅 ${x.name}
+—
+${money(x.amount)}
+</strong>
+
+<div class="meta">
+Next Date: ${x.date}
+•
+Paid: ${x.paidCount}/${x.total}
+•
+Remaining: ${remaining}
+${x.note?' • '+x.note:''}
+</div>
+
+${status}
+
+</div>
+
+<div class="buttons">
+${buttons}
+</div>
+
+</div>
+
+`;
+
+}
+
+/* RENDER EMI */
+
+function renderEMI(){
+
+const activeEMI=
+data.emi.filter(
+x=>Number(x.paidCount)<Number(x.total)
+);
+
+document.getElementById('emiList').innerHTML=
+data.emi.length
+?
+data.emi
+.slice()
+.sort((a,b)=>String(a.date).localeCompare(String(b.date)))
+.map(emiHTML)
+.join('')
+:
+'<div class="empty">No EMI added yet</div>';
+
+/* Total EMI */
+
+const totalEMIAmount=
+activeEMI.reduce(
+(s,x)=>s+Number(x.amount||0),
+0
+);
+
+document.getElementById(
+'emiTotalAmount'
+).textContent=money(totalEMIAmount);
+
+/* Remaining EMI count */
+
+const remainingCount=
+activeEMI.reduce(
+(s,x)=>s+
+Math.max(
+0,
+Number(x.total)-Number(x.paidCount)
+),
+0
+);
+
+document.getElementById(
+'emiRemaining'
+).textContent=remainingCount;
+
+/* Next EMI */
+
+const next=
+activeEMI
+.slice()
+.sort((a,b)=>String(a.date).localeCompare(String(b.date)))[0];
+
+document.getElementById(
+'emiNextAmount'
+).textContent=
+next?money(next.amount):'₹0';
+
+document.getElementById(
+'dashboardNextEMI'
+).textContent=
+next
+?
+`${next.name} - ${money(next.amount)}`
+:
+'No EMI';
+
+document.getElementById(
+'dashboardNextDate'
+).textContent=
+next?next.date:'-';
+
+/* This month EMI */
+
+const month=
+new Date().toISOString().slice(0,7);
+
+const thisMonthEMI=
+activeEMI
+.filter(x=>x.date?.startsWith(month))
+.reduce(
+(s,x)=>s+Number(x.amount||0),
+0
+);
+
+document.getElementById(
+'dashboardEMI'
+).textContent=
+money(thisMonthEMI);
+
+/* Upcoming EMI */
+
+const upcoming=
+activeEMI
+.slice()
+.sort(
+(a,b)=>String(a.date).localeCompare(String(b.date))
+)
+.slice(0,5);
+
+document.getElementById(
+'upcomingEMI'
+).innerHTML=
+upcoming.length
+?
+upcoming.map(emiHTML).join('')
+:
+'<div class="empty">No upcoming EMI</div>';
+
+}
+
+/* MAIN RENDER */
+
 function render(){
- const inc=total(data.income), exp=total(data.expense), r=total(data.receivable.filter(x=>!x.paid)), p=total(data.payable.filter(x=>!x.paid));
- document.getElementById('cash').textContent=money(inc-exp);
- document.getElementById('receivable').textContent=money(r);
- document.getElementById('payable').textContent=money(p);
- const m=new Date().toISOString().slice(0,7);
- document.getElementById('monthExpense').textContent=money(data.expense.filter(x=>x.date?.startsWith(m)).reduce((s,x)=>s+Number(x.amount),0));
- renderList('receivableList',data.receivable.filter(x=>!x.paid),'receivable');
- renderList('payableList',data.payable.filter(x=>!x.paid),'payable');
- renderList('expenseList',data.expense,'expense');
- renderList('incomeList',data.income,'income');
- const all=[...data.income.map(x=>({...x,label:'Income',type:'income'})),...data.expense.map(x=>({...x,label:'Expense',type:'expense'}))].sort((a,b)=>String(b.date).localeCompare(String(a.date))).slice(0,8);
- document.getElementById('recent').innerHTML=all.length?all.map(x=>`<div class="item"><div><strong>${x.label} — ${money(x.amount)}</strong><div class="meta">${x.date||''} • ${x.source||x.category||''}${x.note?' • '+x.note:''}</div></div></div>`).join(''):'<div class="empty">No transactions yet</div>';
+
+const inc=total(data.income);
+
+const exp=total(data.expense);
+
+const r=total(
+data.receivable.filter(x=>!x.paid)
+);
+
+const p=total(
+data.payable.filter(x=>!x.paid)
+);
+
+document.getElementById(
+'cash'
+).textContent=money(inc-exp);
+
+document.getElementById(
+'receivable'
+).textContent=money(r);
+
+document.getElementById(
+'payable'
+).textContent=money(p);
+
+const m=
+new Date().toISOString().slice(0,7);
+
+document.getElementById(
+'monthExpense'
+).textContent=
+money(
+data.expense
+.filter(x=>x.date?.startsWith(m))
+.reduce(
+(s,x)=>s+Number(x.amount),
+0
+)
+);
+
+renderList(
+'receivableList',
+data.receivable.filter(x=>!x.paid),
+'receivable'
+);
+
+renderList(
+'payableList',
+data.payable.filter(x=>!x.paid),
+'payable'
+);
+
+renderList(
+'expenseList',
+data.expense,
+'expense'
+);
+
+renderList(
+'incomeList',
+data.income,
+'income'
+);
+
+/* RECENT */
+
+const all=[
+
+...data.income.map(
+x=>({...x,label:'Income',type:'income'})
+),
+
+...data.expense.map(
+x=>({...x,label:'Expense',type:'expense'})
+)
+
+]
+.sort(
+(a,b)=>String(b.date)
+.localeCompare(String(a.date))
+)
+.slice(0,8);
+
+document.getElementById(
+'recent'
+).innerHTML=
+
+all.length
+?
+all.map(
+x=>`
+
+<div class="item">
+
+<div>
+
+<strong>
+${x.label} — ${money(x.amount)}
+</strong>
+
+<div class="meta">
+${x.date||''}
+•
+${x.source||x.category||''}
+${x.note?' • '+x.note:''}
+</div>
+
+</div>
+
+</div>
+
+`
+).join('')
+:
+'<div class="empty">No transactions yet</div>';
+
+renderEMI();
+
 }
+
+/* FORM FUNCTION */
+
 function form(type,id){
- document.getElementById(id).addEventListener('submit',e=>{e.preventDefault();const f=new FormData(e.target),x=Object.fromEntries(f);x.id=Date.now();x.amount=Number(x.amount);data[type].push(x);e.target.reset();if(e.target.querySelector('input[type=date]'))e.target.querySelector('input[type=date]').value=today();save()})
+
+document.getElementById(id)
+.addEventListener(
+'submit',
+e=>{
+
+e.preventDefault();
+
+const f=new FormData(e.target);
+
+const x=Object.fromEntries(f);
+
+x.id=Date.now();
+
+x.amount=Number(x.amount);
+
+data[type].push(x);
+
+e.target.reset();
+
+const dateInput=
+e.target.querySelector(
+'input[type=date]'
+);
+
+if(dateInput)
+dateInput.value=today();
+
+save();
+
 }
-form('receivable','receivableForm');form('payable','payableForm');form('expense','expenseForm');form('income','incomeForm');
-document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tabs button').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.querySelectorAll('.tab').forEach(x=>x.classList.add('hidden'));document.getElementById(b.dataset.tab).classList.remove('hidden')});
+);
+
+}
+
+form(
+'receivable',
+'receivableForm'
+);
+
+form(
+'payable',
+'payableForm'
+);
+
+form(
+'expense',
+'expenseForm'
+);
+
+form(
+'income',
+'incomeForm'
+);
+
+/* EMI FORM */
+
+document.getElementById(
+'emiForm'
+).addEventListener(
+'submit',
+e=>{
+
+e.preventDefault();
+
+const f=new FormData(e.target);
+
+const x=Object.fromEntries(f);
+
+x.id=Date.now();
+
+x.amount=Number(x.amount);
+
+x.total=Number(x.total);
+
+x.paidCount=Number(x.paidCount||0);
+
+if(x.paidCount>x.total){
+
+alert(
+'Paid EMI cannot be greater than Total EMI.'
+);
+
+return;
+
+}
+
+data.emi.push(x);
+
+e.target.reset();
+
+e.target.querySelector(
+'input[name="date"]'
+).value=today();
+
+e.target.querySelector(
+'input[name="paidCount"]'
+).value=0;
+
+save();
+
+}
+);
+
+/* TAB SWITCH */
+
+document
+.querySelectorAll('.tabs button')
+.forEach(b=>{
+
+b.onclick=()=>{
+
+document
+.querySelectorAll('.tabs button')
+.forEach(x=>
+x.classList.remove('active')
+);
+
+b.classList.add('active');
+
+document
+.querySelectorAll('.tab')
+.forEach(x=>
+x.classList.add('hidden')
+);
+
+document
+.getElementById(b.dataset.tab)
+.classList.remove('hidden');
+
+};
+
+});
+
+/* START */
+
 render();
+
 </script>
-<script>if("serviceWorker" in navigator){navigator.serviceWorker.register("./sw.js").catch(()=>{});}</script>
+
+<script>
+
+if("serviceWorker" in navigator){
+
+navigator.serviceWorker
+.register("./sw.js")
+.catch(()=>{});
+
+}
+
+</script>
+
 </body>
 </html>
