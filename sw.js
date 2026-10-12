@@ -1,5 +1,5 @@
 
-const CACHE = "money-manager-v2";
+const CACHE = "money-manager-v1";
 
 const ASSETS = [
   "./",
